@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Duplicate Files</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="css/app.css" rel="stylesheet">
+</head>
+<body data-page="duplicates">
+  <main id="page" data-title="Duplicate Files">
+    <div class="panel mb-3">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label small text-muted mb-1" for="q">Search</label>
+          <div class="input-group"><span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input class="form-control" id="q" placeholder="File name, path or hash" autocomplete="off"></div>
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted mb-1" for="type">File type</label>
+          <select class="form-select" id="type">
+            <option value="">All types</option><option>Images</option><option>Videos</option><option>Audio</option>
+            <option>Documents</option><option>Archives</option><option>Code</option><option>Executables</option><option>Other</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted mb-1" for="minSize">Minimum size</label>
+          <select class="form-select" id="minSize">
+            <option value="0">Any size</option><option value="102400">100 KB</option><option value="1048576">1 MB</option>
+            <option value="10485760">10 MB</option><option value="104857600">100 MB</option><option value="1073741824">1 GB</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted mb-1" for="sort">Sort by</label>
+          <select class="form-select" id="sort">
+            <option value="recoverable">Recoverable space</option><option value="size">File size</option>
+            <option value="name">Name</option><option value="date">Date modified</option><option value="files">Number of copies</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-2 d-grid">
+          <button class="btn btn-outline-secondary" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sticky-bar">
+      <div class="panel py-2">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <div class="me-auto">
+            <span class="fw-semibold" id="sumGroups">0 groups</span> · <span id="sumFiles">0 files</span> ·
+            potential recovery <span class="fw-bold text-success" id="sumRecover">0 B</span>
+            <div class="small text-muted" id="sumSelected">Nothing selected</div>
+          </div>
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-regular fa-square-check"></i> Auto-select</button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" data-rule="first">Select all duplicates (keep first copy)</button></li>
+              <li><button class="dropdown-item" data-rule="oldest">Keep oldest</button></li>
+              <li><button class="dropdown-item" data-rule="newest">Keep newest</button></li>
+              <li><button class="dropdown-item" data-rule="shortest">Keep shortest path</button></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item" data-rule="clear">Clear selection</button></li>
+            </ul>
+          </div>
+          <button class="btn btn-sm btn-outline-secondary" id="toggleAll"><i class="fa-solid fa-up-down"></i> Expand / collapse all</button>
+          <button class="btn btn-sm btn-warning" id="quarantineBtn" disabled><i class="fa-solid fa-box-archive"></i> Quarantine selected</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="groups"><div class="loading"><i class="fa-solid fa-spinner spin"></i> Loading…</div></div>
+    <div class="text-center my-3"><button class="btn btn-outline-primary d-none" id="moreBtn">Load more groups</button></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/duplicates.js"></script>
+</body>
+</html>

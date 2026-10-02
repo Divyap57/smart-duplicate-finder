@@ -1,0 +1,8 @@
+target/
+.idea/
+*.iml
+*.class
+.vscode/
+
+src/main/resources/db.properties
+classpath.txt
